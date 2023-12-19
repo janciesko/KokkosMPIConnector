@@ -7,18 +7,41 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set (NAME KokkosMPIConnector)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/modules)
 
-find_package(Kokkos REQUIRED)
-find_package(MPI REQUIRED)
-find_package(MDSPAN REQUIRED)
-
 option(KMC_ENABLE_TESTS "Whether to build tests" OFF)
 option(KMC_ENABLE_DEBUG "Whether to enable debug output" OFF)
+option(KMC_ENABLE_KOKKOS "Whether to build with Kokkos support" OFF)
+option(KMC_ENABLE_MDSPAN "Whether to build with mdspan support" OFF)
+
+if(KMC_ENABLE_KOKKOS)
+  set(BACKEND KOKKOS)
+  find_package(Kokkos REQUIRED)
+endif()
+if(KMC_ENABLE_MDSPAN)
+  set(BACKEND MDSPAN)
+  find_package(MDSPAN REQUIRED)
+endif()
+
+list(LENGTH BACKEND N_BACKENDS)
+if (NOT ${N_BACKENDS} GREATER_EQUAL "1")
+  message(FATAL_ERROR "Must give valid backend(s). ${N_BACKENDS} given.")
+endif()
+
+find_package(MPI REQUIRED)
 
 set(SOURCES)
 set(HEADERS)
 
 set (SOURCE_DIRS "./src")
-set (PUBLIC_DEPS Kokkos::kokkos MPI::MPI_CXX MDSPAN)
+
+set (PUBLIC_DEPS MPI::MPI_CXX)
+
+if(KMC_ENABLE_KOKKOS)
+  list(APPEND PUBLIC_DEPS Kokkos::kokkos)
+endif()
+
+if(KMC_ENABLE_MDSPAN)
+  list(APPEND PUBLIC_DEPS MDSPAN)
+endif()
 
 foreach(DIR ${SOURCE_DIRS})
   file(GLOB DIR_SRCS ${DIR}/*.cpp)
@@ -46,7 +69,7 @@ install(FILES
 
 install(FILES
   ${HEADERS}
-  DESTINATION include ${CMAKE_INSTALL_INCLUDEDIR}
+  DESTINATION include DESTINATION include}
 )
 
 IF (KMC_ENABLE_TESTS)
