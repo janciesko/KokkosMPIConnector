@@ -1,6 +1,6 @@
 # KokkosMPIConnector
 
-This project implements the Kokkos MPI Connector. 
+This project implements the Kokkos MPI Connector.
 
 ## Building
 

@@ -18,5 +18,5 @@ FILE(GLOB TEST_SRCS *.cpp)
 
 add_executable(${NAME} ${TEST_SRCS})
 
-target_link_libraries(${NAME} PRIVATE KokkosMPIConnector) 
+target_link_libraries(${NAME} PRIVATE KokkosMPIConnector)
 target_link_libraries(${NAME} PRIVATE gtest_main)

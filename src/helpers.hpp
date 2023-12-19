@@ -17,21 +17,16 @@
 //
 //@HEADER
 
-namespace MPIConnector
-{
+namespace MPIConnector {
 
-template <class T>
-struct Is_View {
+template <class T> struct Is_View {
+  enum : bool { value = Kokkos::is_view<T>::value };
+};
+
+template <class T> struct Is_mdspan {
   enum : bool {
-    value = Kokkos::is_view<T>::value
+    value = !Kokkos::is_view<T>::value /*TODO*/
   };
 };
 
-template <class T>
-struct Is_mdspan {
-  enum : bool {
-     value = !Kokkos::is_view<T>::value /*TODO*/
-  };
-};
-
-}
+} // namespace MPIConnector

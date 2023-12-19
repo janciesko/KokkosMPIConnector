@@ -60,6 +60,14 @@ endif()
 target_include_directories(${NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/>)
 target_include_directories(${NAME} PUBLIC $<INSTALL_INTERFACE:include>)
 
+if(KMC_ENABLE_KOKKOS)
+  target_compile_definitions(${NAME} PUBLIC KMC_ENABLE_KOKKOS)
+endif()
+
+if(KMC_ENABLE_MDSPAN)
+  target_compile_definitions(${NAME} PUBLIC KMC_ENABLE_MDSPAN)
+endif()
+
 target_link_libraries(${NAME} PUBLIC ${PUBLIC_DEPS})
 
 install(FILES

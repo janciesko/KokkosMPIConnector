@@ -16,85 +16,79 @@
 //
 //@HEADER
 
+#ifdef KMC_ENABLE_KOKKOS
 #include <Kokkos_Core.hpp>
-//#include <mdspan/mdspan.hpp> /*TODO*/
+#endif
+
+#ifdef KMC_ENABLE_MDSPAN
+#include <mdspan/mdspan.hpp> /*TODO*/
+#endif
+
 #include <mpi.h>
 
 #include <helpers.hpp>
 
-namespace MPIConnector
-{
+namespace MPIConnector {
 
-template<typename T>
-class SupportedTypes
-{
-    //support only these two for now
-    static_assert(Is_mdspan<T>::value || Is_View<T>::const_value_type);
+template <typename T> class SupportedTypes {
+  // support only these two for now
+  static_assert(Is_mdspan<T>::value || Is_View<T>::const_value_type);
 };
 
-template<typename T>
- std::enable_if_t<Is_View<T>::value, int> 
- MPI_IRecv(T &view, int dest, int tag, MPI_Comm comm)
- {
-    /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<Is_View<T>::value, int> MPI_IRecv(T &view, int dest, int tag,
+                                                   MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
-template<typename T>
-std::enable_if_t<!Is_View<T>::value, int> 
-MPI_IRecv(T &view, int dest, int tag, MPI_Comm comm)
-{
-    /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<!Is_View<T>::value, int> MPI_IRecv(T &view, int dest, int tag,
+                                                    MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
- template<typename T>
- std::enable_if_t<Is_View<T>::value, int> 
- MPI_Isend(T &view, int dest, int tag, MPI_Comm comm)
- {
-    /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<Is_View<T>::value, int> MPI_Isend(T &view, int dest, int tag,
+                                                   MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
-template<typename T>
-std::enable_if_t<!Is_View<T>::value, int> 
-MPI_Isend(T &view, int dest, int tag, MPI_Comm comm)
-{
-     /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<!Is_View<T>::value, int> MPI_Isend(T &view, int dest, int tag,
+                                                    MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
- template<typename T>
- std::enable_if_t<Is_View<T>::value, int> 
- MPI_Send(T &view, int dest, int tag, MPI_Comm comm)
- {
-    /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<Is_View<T>::value, int> MPI_Send(T &view, int dest, int tag,
+                                                  MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
-template<typename T>
-std::enable_if_t<!Is_View<T>::value, int> 
-MPI_Send(T &view, int dest, int tag, MPI_Comm comm)
-{
-    /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<!Is_View<T>::value, int> MPI_Send(T &view, int dest, int tag,
+                                                   MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
- template<typename T>
- std::enable_if_t<Is_View<T>::value, int> 
- MPI_Recv(T &view, int dest, int tag, MPI_Comm comm)
- {
-    /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<Is_View<T>::value, int> MPI_Recv(T &view, int dest, int tag,
+                                                  MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
-template<typename T>
-std::enable_if_t<!Is_View<T>::value, int> 
-MPI_Recv(T &view, int dest, int tag, MPI_Comm comm)
-{
-     /*some code*/
-    return 0;
+template <typename T>
+std::enable_if_t<!Is_View<T>::value, int> MPI_Recv(T &view, int dest, int tag,
+                                                   MPI_Comm comm) {
+  /*some code*/
+  return 0;
 }
 
-
-} //namespace MPIConnector
+} // namespace MPIConnector

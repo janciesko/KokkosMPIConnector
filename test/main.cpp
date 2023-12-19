@@ -16,9 +16,8 @@
 //
 //@HEADER
 
-
-#include <gtest/gtest.h>
 #include <Kokkos_Core.hpp>
+#include <gtest/gtest.h>
 #include <mpi.h>
 
 int main(int argc, char *argv[]) {
