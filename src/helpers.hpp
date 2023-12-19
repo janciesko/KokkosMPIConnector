@@ -1,3 +1,4 @@
+
 //@HEADER
 // ************************************************************************
 //
@@ -16,6 +17,21 @@
 //
 //@HEADER
 
-#include <connector.hpp>
+namespace MPIConnector
+{
 
-/* */
+template <class T>
+struct Is_View {
+  enum : bool {
+    value = Kokkos::is_view<T>::value
+  };
+};
+
+template <class T>
+struct Is_mdspan {
+  enum : bool {
+     value = !Kokkos::is_view<T>::value /*TODO*/
+  };
+};
+
+}

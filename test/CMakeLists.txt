@@ -6,6 +6,7 @@ FetchContent_Declare(googletest
   GIT_TAG           main
 )
 FetchContent_GetProperties(googletest)
+
 if(NOT googletest_POPULATED)
   FetchContent_Populate(googletest)
   add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
@@ -16,5 +17,6 @@ SET(NAME KokkosMPIConnector_TestAll)
 FILE(GLOB TEST_SRCS *.cpp)
 
 add_executable(${NAME} ${TEST_SRCS})
+
 target_link_libraries(${NAME} PRIVATE KokkosMPIConnector) 
 target_link_libraries(${NAME} PRIVATE gtest_main)
